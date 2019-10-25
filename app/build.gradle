@@ -1,12 +1,19 @@
-apply plugin: 'com.android.application'
+import dependencies.Deps
 
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-android-extensions"
+    id "kotlin-kapt"
+    id "kotlinx-serialization"
+    id "androidx.navigation.safeargs"
+    id "org.jmailen.kotlinter"
+    id "de.mannodermaus.android-junit5"
+    id "jacoco"
+}
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.yoshi991.testcourselist"
         minSdkVersion 21
@@ -14,22 +21,261 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArgument("runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder")
+        vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         release {
-            minifyEnabled false
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField("String", "API_URL", "\"https://native-team-code-test-api.herokuapp.com\"")
+        }
+        debug {
+            debuggable true
+            applicationIdSuffix ".debug"
+
+            buildConfigField("String", "API_URL", "\"https://native-team-code-test-api.herokuapp.com\"")
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile = file("debug.keystore")
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+
+    kotlinOptions {
+        freeCompilerArgs = ["-Xallow-result-return-type"]
+    }
+
+    kotlinter {
+        ignoreFailures = true
+        reporters = ['checkstyle', 'plain']
+        indentSize = 4
+    }
+
+    lintOptions {
+        lintConfig file("${rootDir.absolutePath}/lint/lint.xml")
+
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        disable 'InvalidPackage'            //Some libraries have issues with this.
+        disable 'OldTargetApi'
+        //Lint gives this warning but SDK 20 would be Android L Beta.
+        disable 'IconDensities'             //For testing purpose. This is safe to remove.
+        disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+
+        junitPlatform {
+            filters {
+                engines {
+                    include 'spek2', 'junit-vintage'
+                }
+            }
+
+            jacocoOptions {
+                // here goes all jacoco config, for example
+                html.enabled = true
+                xml.enabled = false
+                csv.enabled = false
+                unitTests.all {
+                    testLogging.events = ["passed", "skipped", "failed"]
+                }
+            }
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    implementation Deps.Kotlin.stdLib
+    implementation Deps.Kotlin.reflect
+    implementation Deps.Kotlin.Coroutines.core
+    implementation Deps.Kotlin.Coroutines.kotlinx
+
+    implementation Deps.AndroidX.appcompat
+    implementation Deps.AndroidX.coreKtx
+    implementation Deps.AndroidX.activityKtx
+    implementation Deps.AndroidX.fragmentKtx
+    implementation Deps.AndroidX.constraintLayout
+    implementation Deps.AndroidX.cardview
+    implementation Deps.AndroidX.coordinatorLayout
+    implementation Deps.AndroidX.recyclerView
+    implementation Deps.AndroidX.swipeRefreshLayout
+
+    implementation Deps.AndroidX.LifeCycle.runtime
+    kapt Deps.AndroidX.LifeCycle.compiler
+    implementation Deps.AndroidX.LifeCycle.extension
+    implementation Deps.AndroidX.LifeCycle.liveDataKtx
+
+    implementation Deps.AndroidX.Navigation.fragment
+    implementation Deps.AndroidX.Navigation.fragmentKtx
+    implementation Deps.AndroidX.Navigation.ui
+    implementation Deps.AndroidX.Navigation.uiKtx
+
+    implementation Deps.Google.material
+
+    implementation Deps.Google.Dagger.core
+    kapt Deps.Google.Dagger.compiler
+    implementation Deps.Google.Dagger.androidCore
+    implementation Deps.Google.Dagger.androidSupport
+    kapt Deps.Google.Dagger.androidProcessor
+
+    implementation Deps.UI.shimmer
+
+    implementation Deps.Groupie.core
+    implementation Deps.Groupie.databinding
+
+    implementation Deps.Square.OkHttp.client
+    implementation Deps.Square.OkHttp.loggingInterceptor
+    implementation Deps.Square.Retrofit.core
+    implementation Deps.Square.Retrofit.converter
+
+    implementation Deps.Glide.core
+    implementation Deps.Glide.okhttp3
+    kapt Deps.Glide.compiler
+    implementation Deps.Glide.transformations
+
+    implementation Deps.Utility.threetenabp
+    implementation Deps.Utility.timber
+
+    implementation Deps.Utility.Stetho.core
+    implementation Deps.Utility.Stetho.okhttp3
+    implementation Deps.Utility.Stetho.urlConnection
+
+    debugImplementation Deps.Utility.Hyperion.core
+    debugImplementation Deps.Utility.Hyperion.attr
+    debugImplementation Deps.Utility.Hyperion.buildConfig
+    debugImplementation Deps.Utility.Hyperion.phoenix
+    debugImplementation Deps.Utility.Hyperion.measurement
+    debugImplementation Deps.Utility.Hyperion.disk
+    debugImplementation Deps.Utility.Hyperion.crash
+    debugImplementation Deps.Utility.Hyperion.sharedPreference
+    debugImplementation Deps.Utility.Hyperion.geigerCounter
+    releaseImplementation Deps.Utility.Hyperion.release
+
+    debugImplementation Deps.Utility.LeakCanary.debug
+    releaseImplementation Deps.Utility.LeakCanary.release
+
+    testImplementation Deps.Test.junit
+    testRuntimeOnly Deps.Test.junitVintage
+    testImplementation Deps.Test.kotlinTest
+    testImplementation Deps.Test.mockk
+    testImplementation Deps.Test.robolectric
+
+    testImplementation Deps.Test.AndroidX.core
+    testImplementation Deps.Test.AndroidX.testCoreKtx
+    testImplementation Deps.Test.AndroidX.runner
+    testImplementation Deps.Test.AndroidX.rules
+    testImplementation Deps.Test.AndroidX.junit
+    testImplementation Deps.Test.AndroidX.truth
+
+    androidTestImplementation Deps.Test.AndroidX.Espresso.core
+    androidTestImplementation Deps.Test.AndroidX.Espresso.intents
+    androidTestImplementation Deps.Test.AndroidX.Espresso.contrib
+
+    testImplementation Deps.Test.Junit5.api
+    testImplementation Deps.Test.Junit5.params
+    testRuntimeOnly Deps.Test.Junit5.engine
+
+    testImplementation Deps.Test.Spek.spek
+    testRuntimeOnly Deps.Test.Spek.runner
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url "https://dl.bintray.com/spekframework/spek-dev" }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+configurations {
+    ktlint
+}
+
+dependencies {
+    ktlint "com.pinterest:ktlint:0.33.0"
+    // additional 3rd party ruleset(s) can be specified here
+    // just add them to the classpath (e.g. ktlint 'groupId:artifactId:version') and
+    // ktlint will pick them up
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args "--android", "--color", "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/reports/ktlint-results.xml", "src/**/*.kt"
+    ignoreExitValue false
+}
+check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args "-F", "src/**/*.kt"
+}
+
+jacoco {
+    toolVersion = "0.8.3"
+}
+
+def excludeFiles = [
+    '**/R*.class',
+    '**/BuildConfig',
+    '**/*Test*.*',
+    '**/*Dagger*Component.*',
+    '**/*Module.*'
+]
+
+task jacocoReports(type: JacocoReport, dependsOn: "testDebugUnitTest") {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+
+    classDirectories = fileTree(
+        dir: "${buildDir}/tmp/kotlin-classes/debug",
+        excludes: excludeFiles
+    )
+    sourceDirectories = files(["${buildDir}/src/main/kotlin"])
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+        csv.enabled = false
+        xml.destination = file("${buildDir}/reports/jacoco/report.xml")
+        html.destination = file("${buildDir}/reports/jacoco/report.html")
+    }
 }
