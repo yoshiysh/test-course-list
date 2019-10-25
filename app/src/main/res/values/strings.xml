@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TestCourseList</string>
+
+    <string name="nav_courses">講座一覧</string>
 </resources>
