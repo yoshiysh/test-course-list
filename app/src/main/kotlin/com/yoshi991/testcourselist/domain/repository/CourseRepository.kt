@@ -9,4 +9,5 @@ interface CourseRepository {
     suspend fun fetchUsage(id: String): Usage
     suspend fun getBookmark(id: String): Bookmark
     suspend fun updateBookmark(id: String, isBookmark: Boolean)
+    suspend fun deleteBookmark(id: String)
 }

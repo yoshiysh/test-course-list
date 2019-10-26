@@ -8,4 +8,5 @@ data class Course(
     val iconUrl: String
 ) {
     var usage: Usage? = null
+    var isBookmark: Boolean = false
 }

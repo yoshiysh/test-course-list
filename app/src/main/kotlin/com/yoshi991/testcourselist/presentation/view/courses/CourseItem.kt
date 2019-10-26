@@ -18,6 +18,16 @@ data class CourseItem(
         viewBinding.itemStatus.setText(
             course.usage?.let { return@let it.status.resId } ?: R.string.usage_status_not_started
         )
-        viewBinding.root.setOnClickListener { onClick(course) }
+        updateBookmarkImage(viewBinding)
+        viewBinding.root.setOnClickListener {
+            course.isBookmark = !course.isBookmark
+            updateBookmarkImage(viewBinding)
+            onClick(course)
+        }
+    }
+
+    private fun updateBookmarkImage(viewBinding: ItemCourseBinding) {
+        val resId = if (course.isBookmark) R.drawable.ic_bookmark_on else R.drawable.ic_bookmark_off
+        viewBinding.itemBookmark.setImageResource(resId)
     }
 }

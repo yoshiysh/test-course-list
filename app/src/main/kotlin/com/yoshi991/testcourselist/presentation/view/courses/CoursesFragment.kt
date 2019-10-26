@@ -49,10 +49,8 @@ class CoursesFragment : BaseFragment() {
             courses.observe(viewLifecycleOwner) { courses ->
                 binding.swipeRefresh.isRefreshing = false
 
-                adapter.update(courses.map {
-                    CourseItem(it) {
-                        // TODO: on click event
-                    }
+                adapter.update(courses.map { course ->
+                    CourseItem(course) { updateBookmark(it) }
                 })
             }
 

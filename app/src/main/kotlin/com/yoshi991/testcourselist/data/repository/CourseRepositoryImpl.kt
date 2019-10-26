@@ -30,4 +30,8 @@ constructor(
     override suspend fun updateBookmark(id: String, isBookmark: Boolean) {
         return bookmarkDao.insert(Bookmark(id, isBookmark))
     }
+
+    override suspend fun deleteBookmark(id: String) {
+        return bookmarkDao.delete(id)
+    }
 }
