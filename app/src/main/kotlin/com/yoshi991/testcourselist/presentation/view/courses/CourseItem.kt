@@ -14,6 +14,10 @@ data class CourseItem(
 
     override fun bind(viewBinding: ItemCourseBinding, position: Int) {
         viewBinding.course = course
+        viewBinding.itemTopics.text = "%,d".format(course.numberOfTopics)
+        viewBinding.itemStatus.setText(
+            course.usage?.let { return@let it.status.resId } ?: R.string.usage_status_not_started
+        )
         viewBinding.root.setOnClickListener { onClick(course) }
     }
 }

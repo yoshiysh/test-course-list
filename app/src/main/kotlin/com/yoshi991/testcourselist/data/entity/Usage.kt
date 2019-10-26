@@ -1,5 +1,8 @@
 package com.yoshi991.testcourselist.data.entity
 
+import androidx.annotation.StringRes
+import com.yoshi991.testcourselist.R
+
 data class Usage(
     val courseId: String,
     val progress: Int
@@ -12,8 +15,8 @@ data class Usage(
         }
 }
 
-enum class UsageStatus {
-    NOT_STARTED,
-    IN_PROGRESS,
-    MASTERED
+enum class UsageStatus(@StringRes val resId: Int) {
+    NOT_STARTED(R.string.usage_status_not_started),
+    IN_PROGRESS(R.string.usage_status_in_progress),
+    MASTERED(R.string.usage_status_mastered)
 }

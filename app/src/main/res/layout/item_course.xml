@@ -12,14 +12,12 @@
             name="course"
             type="com.yoshi991.testcourselist.data.entity.Course"
             />
-
     </data>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/item_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="8dp"
         >
@@ -50,27 +48,30 @@
                 android:id="@+id/item_image"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:adjustViewBounds="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/item_start"
                 app:layout_constraintTop_toTopOf="parent"
-                bind:image_path="@{course.iconUrl}"
+                bind:image_circle="@{course.iconUrl}"
                 tools:src="@tools:sample/avatars"
                 />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/item_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:maxLines="3"
                 android:text="@{course.name}"
                 android:textColor="@color/black87"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/item_teacher_name"
+                app:layout_constraintEnd_toStartOf="@id/item_bookmark"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/item_image"
-                app:layout_constraintTop_toTopOf="@id/item_image"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="中3 英語(基礎)"
                 />
 
@@ -78,9 +79,10 @@
                 android:id="@+id/item_teacher_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="@{course.teacherName}"
                 android:textColor="@color/black87"
-                app:layout_constraintBottom_toBottomOf="@id/item_image"
+                app:layout_constraintBottom_toTopOf="@id/item_usage_status"
                 app:layout_constraintStart_toStartOf="@id/item_name"
                 app:layout_constraintTop_toBottomOf="@id/item_name"
                 tools:text="竹内"
@@ -91,7 +93,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@{course.numberOfTopics}"
                 android:textColor="@color/black87"
                 app:layout_constraintBottom_toBottomOf="@id/item_teacher_name"
                 app:layout_constraintStart_toEndOf="@id/item_teacher_name"
@@ -108,6 +109,32 @@
                 app:layout_constraintBottom_toBottomOf="@id/item_teacher_name"
                 app:layout_constraintStart_toEndOf="@id/item_topics"
                 app:layout_constraintTop_toTopOf="@id/item_teacher_name"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/item_usage_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/course_usage_status"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/item_name"
+                app:layout_constraintTop_toBottomOf="@id/item_teacher_name"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/item_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/item_usage_status"
+                app:layout_constraintStart_toEndOf="@id/item_usage_status"
+                app:layout_constraintTop_toTopOf="@id/item_usage_status"
+                tools:text="完了済み"
                 />
 
             <androidx.appcompat.widget.AppCompatImageView

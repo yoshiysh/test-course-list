@@ -6,4 +6,6 @@ data class Course(
     val teacherName: String,
     val numberOfTopics: Int,
     val iconUrl: String
-)
+) {
+    var usage: Usage? = null
+}
