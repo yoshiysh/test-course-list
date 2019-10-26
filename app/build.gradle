@@ -144,6 +144,10 @@ dependencies {
     implementation Deps.AndroidX.Navigation.ui
     implementation Deps.AndroidX.Navigation.uiKtx
 
+    implementation Deps.AndroidX.Room.runtime
+    implementation Deps.AndroidX.Room.roomKtx
+    kapt Deps.AndroidX.Room.compiler
+
     implementation Deps.Google.material
 
     implementation Deps.Google.Dagger.core

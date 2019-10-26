@@ -2,6 +2,7 @@ package com.yoshi991.testcourselist
 
 import android.app.Application
 import com.yoshi991.testcourselist.data.di.ApiModule
+import com.yoshi991.testcourselist.data.di.DatabaseModule
 import com.yoshi991.testcourselist.data.di.RepositoryModule
 import com.yoshi991.testcourselist.domain.di.DomainModule
 import com.yoshi991.testcourselist.presentation.di.ActivityModule
@@ -18,6 +19,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ActivityModule::class,
         ApiModule::class,
+        DatabaseModule::class,
         RepositoryModule::class,
         DomainModule::class,
         ViewModelFactoryModule::class
