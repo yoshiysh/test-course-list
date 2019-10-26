@@ -7,18 +7,18 @@ import com.yoshi991.testcourselist.util.extension.result
 import javax.inject.Inject
 
 interface CourseUseCase {
-    suspend fun fetchCourses(): Result<List<Course>>
-    suspend fun fetchUsage(id: Int): Result<Usage>
+    suspend fun getCourses(): Result<List<Course>>
+    suspend fun getUsage(id: String): Result<Usage>
 }
 
 class CourseUseCaseImpl @Inject constructor(private val courseRepository: CourseRepository) :
     CourseUseCase {
 
-    override suspend fun fetchCourses(): Result<List<Course>> {
+    override suspend fun getCourses(): Result<List<Course>> {
         return result { courseRepository.fetchCourses() }
     }
 
-    override suspend fun fetchUsage(id: Int): Result<Usage> {
+    override suspend fun getUsage(id: String): Result<Usage> {
         return result { courseRepository.fetchUsage(id) }
     }
 }

@@ -12,7 +12,7 @@ class CourseRepositoryImpl @Inject constructor(private val api: API) : CourseRep
         return api.fetchCourses()
     }
 
-    override suspend fun fetchUsage(id: Int): Usage {
+    override suspend fun fetchUsage(id: String): Usage {
         return api.fetchUsage(id)
     }
 }

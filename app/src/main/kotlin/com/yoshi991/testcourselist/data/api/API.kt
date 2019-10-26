@@ -11,5 +11,5 @@ interface API {
     suspend fun fetchCourses(): List<Course>
 
     @GET("/api/{course_id}/usage")
-    suspend fun fetchUsage(@Path("course_id") course_id: Int): Usage
+    suspend fun fetchUsage(@Path("course_id") course_id: String): Usage
 }

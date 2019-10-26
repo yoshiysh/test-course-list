@@ -5,5 +5,5 @@ import com.yoshi991.testcourselist.data.entity.Usage
 
 interface CourseRepository {
     suspend fun fetchCourses(): List<Course>
-    suspend fun fetchUsage(id: Int): Usage
+    suspend fun fetchUsage(id: String): Usage
 }
