@@ -3,6 +3,7 @@ package com.yoshi991.testcourselist.data.di
 import android.content.Context
 import androidx.room.Room
 import com.yoshi991.testcourselist.data.storage.dao.BookmarkDao
+import com.yoshi991.testcourselist.data.storage.dao.CourseDao
 import com.yoshi991.testcourselist.data.storage.database.Database
 import dagger.Module
 import dagger.Provides
@@ -21,7 +22,13 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provide(db: Database): BookmarkDao {
+    fun provideCourseDao(db: Database): CourseDao {
+        return db.courseDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideBookmarkDao(db: Database): BookmarkDao {
         return db.bookmarkDao()
     }
 }

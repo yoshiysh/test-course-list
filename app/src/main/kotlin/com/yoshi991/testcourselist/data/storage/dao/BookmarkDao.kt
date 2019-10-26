@@ -7,11 +7,14 @@ import com.yoshi991.testcourselist.data.entity.Bookmark
 interface BookmarkDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(bookmark: Bookmark)
+    suspend fun upsert(bookmark: Bookmark)
 
     @Query("SELECT * FROM bookmarks WHERE id = :id")
     suspend fun find(id: String): Bookmark
 
     @Query("DELETE FROM bookmarks WHERE id = :id")
     suspend fun delete(id: String)
+
+    @Query("SELECT COUNT(*) FROM bookmarks")
+    suspend fun count(): Int
 }

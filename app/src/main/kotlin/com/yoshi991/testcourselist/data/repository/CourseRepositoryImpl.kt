@@ -5,6 +5,7 @@ import com.yoshi991.testcourselist.data.entity.Bookmark
 import com.yoshi991.testcourselist.data.entity.Course
 import com.yoshi991.testcourselist.data.entity.Usage
 import com.yoshi991.testcourselist.data.storage.dao.BookmarkDao
+import com.yoshi991.testcourselist.data.storage.dao.CourseDao
 import com.yoshi991.testcourselist.domain.repository.CourseRepository
 import javax.inject.Inject
 
@@ -12,11 +13,20 @@ class CourseRepositoryImpl
 @Inject
 constructor(
     private val api: API,
+    private val courseDao: CourseDao,
     private val bookmarkDao: BookmarkDao
 ) : CourseRepository {
 
     override suspend fun fetchCourses(): List<Course> {
         return api.fetchCourses()
+    }
+
+    override suspend fun updateCourses(courses: List<Course>) {
+        courses.map { courseDao.upsert(it) }
+    }
+
+    override suspend fun getCourses(): List<Course> {
+        return courseDao.getAll()
     }
 
     override suspend fun fetchUsage(id: String): Usage {
@@ -28,7 +38,7 @@ constructor(
     }
 
     override suspend fun updateBookmark(id: String, isBookmark: Boolean) {
-        return bookmarkDao.insert(Bookmark(id, isBookmark))
+        return bookmarkDao.upsert(Bookmark(id, isBookmark))
     }
 
     override suspend fun deleteBookmark(id: String) {

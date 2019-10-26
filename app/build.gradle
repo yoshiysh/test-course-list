@@ -191,6 +191,7 @@ dependencies {
 
     debugImplementation Deps.Utility.LeakCanary.debug
     releaseImplementation Deps.Utility.LeakCanary.release
+    testImplementation Deps.Utility.LeakCanary.release
 
     testImplementation Deps.Test.junit
     testRuntimeOnly Deps.Test.junitVintage
