@@ -1,7 +1,6 @@
 package com.yoshi991.testcourselist.domain.usecase
 
 import android.accounts.NetworkErrorException
-import com.yoshi991.testcourselist.data.entity.Bookmark
 import com.yoshi991.testcourselist.data.entity.Course
 import com.yoshi991.testcourselist.data.entity.Usage
 import com.yoshi991.testcourselist.domain.repository.CourseRepository

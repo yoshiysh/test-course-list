@@ -12,6 +12,7 @@ import com.yoshi991.testcourselist.databinding.FragmentCoursesBinding
 import com.yoshi991.testcourselist.presentation.view.base.BaseFragment
 import com.yoshi991.testcourselist.util.SpacerItemDecoration
 import com.yoshi991.testcourselist.util.extension.dp
+import com.yoshi991.testcourselist.util.extension.showSnackbar
 
 class CoursesFragment : BaseFragment() {
 
@@ -54,8 +55,9 @@ class CoursesFragment : BaseFragment() {
                 })
             }
 
-            error.observe(viewLifecycleOwner) {
+            error.observe(viewLifecycleOwner) { error ->
                 binding.swipeRefresh.isRefreshing = false
+                binding.container.showSnackbar(error.resId)
             }
         }
 

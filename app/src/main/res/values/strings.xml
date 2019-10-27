@@ -9,4 +9,8 @@
     <string name="usage_status_not_started">開始前</string>
     <string name="usage_status_in_progress">未完了</string>
     <string name="usage_status_mastered">完了済み</string>
+
+    <string name="error_http_not_found">講座情報が取得できませんでした</string>
+    <string name="error_http_internal_error">サーバーと接続ができませんでした</string>
+    <string name="error_unhandled">不明なエラー</string>
 </resources>
