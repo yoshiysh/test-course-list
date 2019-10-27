@@ -21,12 +21,20 @@ constructor(
         return api.fetchCourses()
     }
 
+    override suspend fun updateCourse(course: Course) {
+        courseDao.upsert(course)
+    }
+
     override suspend fun updateCourses(courses: List<Course>) {
-        courses.map { courseDao.upsert(it) }
+        courses.map { updateCourse(it) }
     }
 
     override suspend fun getCourses(): List<Course> {
         return courseDao.getAll()
+    }
+
+    override suspend fun deleteCourses() {
+        return courseDao.deleteAll()
     }
 
     override suspend fun fetchUsage(id: String): Usage {
