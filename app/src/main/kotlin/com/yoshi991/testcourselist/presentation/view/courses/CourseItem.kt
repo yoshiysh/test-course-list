@@ -19,6 +19,10 @@ data class CourseItem(
             course.usage?.let { return@let it.status.resId } ?: R.string.usage_status_not_started
         )
         updateBookmarkImage(viewBinding)
+        course.usage?.let {
+            viewBinding.itemProgress.progress = it.progress.toFloat()
+            viewBinding.itemProgress.rotation = -90f
+        }
         viewBinding.root.setOnClickListener {
             course.isBookmark = !course.isBookmark
             updateBookmarkImage(viewBinding)

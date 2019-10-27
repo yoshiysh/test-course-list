@@ -157,6 +157,7 @@ dependencies {
     kapt Deps.Google.Dagger.androidProcessor
 
     implementation Deps.UI.shimmer
+    implementation Deps.UI.progress
 
     implementation Deps.Groupie.core
     implementation Deps.Groupie.databinding

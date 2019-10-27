@@ -44,14 +44,29 @@
                 app:layout_constraintGuide_end="16dp"
                 />
 
+            <com.github.lzyzsd.circleprogress.DonutProgress
+                android:id="@+id/item_progress"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                app:donut_finished_color="@color/accent"
+                app:donut_finished_stroke_width="2dp"
+                app:donut_max="100"
+                app:donut_text=""
+                app:donut_unfinished_stroke_width="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/item_start"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/item_image"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:adjustViewBounds="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/item_start"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/item_progress"
+                app:layout_constraintEnd_toEndOf="@id/item_progress"
+                app:layout_constraintStart_toStartOf="@id/item_progress"
+                app:layout_constraintTop_toTopOf="@id/item_progress"
                 bind:image_circle="@{course.iconUrl}"
                 tools:src="@tools:sample/avatars"
                 />
@@ -70,7 +85,7 @@
                 app:layout_constraintBottom_toTopOf="@id/item_teacher_name"
                 app:layout_constraintEnd_toStartOf="@id/item_bookmark"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toEndOf="@id/item_image"
+                app:layout_constraintStart_toEndOf="@id/item_progress"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="中3 英語(基礎)"
                 />

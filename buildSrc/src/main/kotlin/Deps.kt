@@ -108,6 +108,7 @@ object Deps {
 
     object UI {
         const val shimmer = "com.facebook.shimmer:shimmer:0.5.0"
+        const val progress = "com.github.lzyzsd:circleprogress:1.2.1"
     }
 
     object Utility {
