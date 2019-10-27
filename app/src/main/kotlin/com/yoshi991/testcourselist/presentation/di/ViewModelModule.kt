@@ -2,6 +2,7 @@ package com.yoshi991.testcourselist.presentation.di
 
 import androidx.lifecycle.ViewModel
 import com.yoshi991.testcourselist.presentation.view.base.viewmodel.ViewModelKey
+import com.yoshi991.testcourselist.presentation.view.bookmarks.BookmarksViewModel
 import com.yoshi991.testcourselist.presentation.view.courses.CoursesViewModel
 import dagger.Binds
 import dagger.Module
@@ -14,4 +15,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(CoursesViewModel::class)
     fun bindCoursesViewModel(viewModel: CoursesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BookmarksViewModel::class)
+    fun bindBookmarksViewModel(viewModel: BookmarksViewModel): ViewModel
 }

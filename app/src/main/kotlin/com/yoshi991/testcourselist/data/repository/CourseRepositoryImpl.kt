@@ -33,12 +33,20 @@ constructor(
         return courseDao.getAll()
     }
 
+    override suspend fun getCourse(id: String): Course {
+        return courseDao.findById(id)
+    }
+
     override suspend fun deleteCourses() {
         return courseDao.deleteAll()
     }
 
     override suspend fun fetchUsage(id: String): Usage {
         return api.fetchUsage(id)
+    }
+
+    override suspend fun getBookmarks(): List<Bookmark> {
+        return bookmarkDao.getAll()
     }
 
     override suspend fun getBookmark(id: String): Bookmark {

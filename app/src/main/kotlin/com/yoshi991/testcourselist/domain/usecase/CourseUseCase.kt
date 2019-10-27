@@ -10,6 +10,7 @@ import javax.inject.Inject
 
 interface CourseUseCase {
     suspend fun getCourses(): Result<List<Course>>
+    suspend fun getBookmarkedCourses(): Result<List<Course>>
     suspend fun updateBookmark(course: Course): Result<Unit>
 }
 
@@ -26,6 +27,22 @@ class CourseUseCaseImpl @Inject constructor(private val courseRepository: Course
                     else -> throw exception
                 }
             }
+        }
+    }
+
+    override suspend fun getBookmarkedCourses(): Result<List<Course>> {
+        return result {
+            courseRepository.getBookmarks().map {
+                courseRepository.getCourse(it.id).apply { isBookmark = true }
+            }
+        }
+    }
+
+    override suspend fun updateBookmark(course: Course): Result<Unit> {
+        return if (course.isBookmark) {
+            addBookmark(course.id)
+        } else {
+            deleteBookmark(course.id)
         }
     }
 
@@ -54,14 +71,6 @@ class CourseUseCaseImpl @Inject constructor(private val courseRepository: Course
 
     private suspend fun getIsBookmark(id: String): Result<Boolean> {
         return result { courseRepository.getBookmark(id).isBookmark }
-    }
-
-    override suspend fun updateBookmark(course: Course): Result<Unit> {
-        return if (course.isBookmark) {
-            addBookmark(course.id)
-        } else {
-            deleteBookmark(course.id)
-        }
     }
 
     private suspend fun addBookmark(id: String): Result<Unit> {

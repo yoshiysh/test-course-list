@@ -15,6 +15,9 @@ interface CourseDao {
     @Query("SELECT * FROM courses")
     suspend fun getAll(): List<Course>
 
+    @Query("SELECT * FROM courses WHERE id = :id")
+    suspend fun findById(id: String): Course
+
     @Query("DELETE FROM courses")
     suspend fun deleteAll()
 

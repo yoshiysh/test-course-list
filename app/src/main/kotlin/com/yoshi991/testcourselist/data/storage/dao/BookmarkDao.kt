@@ -9,6 +9,9 @@ interface BookmarkDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(bookmark: Bookmark)
 
+    @Query("SELECT * FROM bookmarks")
+    suspend fun getAll(): List<Bookmark>
+
     @Query("SELECT * FROM bookmarks WHERE id = :id")
     suspend fun find(id: String): Bookmark
 
