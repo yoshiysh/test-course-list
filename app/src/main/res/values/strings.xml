@@ -3,6 +3,7 @@
 
     <string name="nav_courses">講座一覧</string>
 
+    <string name="course_empty_description">表示可能な講座がありません</string>
     <string name="course_topic_unit">講座</string>
     <string name="course_usage_status">進捗状況：</string>
 

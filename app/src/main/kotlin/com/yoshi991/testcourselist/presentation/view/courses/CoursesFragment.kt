@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.xwray.groupie.GroupAdapter
@@ -49,6 +50,7 @@ class CoursesFragment : BaseFragment() {
         with(viewModel) {
             courses.observe(viewLifecycleOwner) { courses ->
                 binding.swipeRefresh.isRefreshing = false
+                binding.emptyGroup.isVisible = courses.isEmpty()
 
                 adapter.update(courses.map { course ->
                     CourseItem(course) { updateBookmark(it) }
