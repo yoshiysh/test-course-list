@@ -12,6 +12,18 @@
         android:name="com.yoshi991.testcourselist.presentation.view.courses.CoursesFragment"
         android:label="@string/nav_courses"
         tools:layout="@layout/fragment_courses"
+        >
+        <action
+            android:id="@+id/action_courses_to_bookmarks"
+            app:destination="@id/bookmarks"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookmarks"
+        android:name="com.yoshi991.testcourselist.presentation.view.bookmarks.BookmarksFragment"
+        android:label="@string/nav_bookmarks"
+        tools:layout="@layout/fragment_bookmarks"
         />
 
 </navigation>

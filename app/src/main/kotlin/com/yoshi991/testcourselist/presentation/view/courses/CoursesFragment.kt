@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import com.yoshi991.testcourselist.databinding.FragmentCoursesBinding
@@ -34,6 +35,7 @@ class CoursesFragment : BaseFragment(), CoursesHandler {
     ): View? {
         binding = FragmentCoursesBinding.inflate(inflater)
         binding.lifecycleOwner = this
+        binding.handler = this
         return binding.root
     }
 
@@ -75,6 +77,6 @@ class CoursesFragment : BaseFragment(), CoursesHandler {
     }
 
     override fun onClickBookmarks() {
-        // TODO: bookmark fragment
+        findNavController().navigate(CoursesFragmentDirections.actionCoursesToBookmarks())
     }
 }

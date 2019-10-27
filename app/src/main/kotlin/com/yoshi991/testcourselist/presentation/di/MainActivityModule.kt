@@ -1,5 +1,6 @@
 package com.yoshi991.testcourselist.presentation.di
 
+import com.yoshi991.testcourselist.presentation.view.bookmarks.BookmarksFragment
 import com.yoshi991.testcourselist.presentation.view.courses.CoursesFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -9,4 +10,7 @@ abstract class MainActivityModule {
 
     @ContributesAndroidInjector
     abstract fun contributeCoursesFragment(): CoursesFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeBookmarksFragment(): BookmarksFragment
 }
