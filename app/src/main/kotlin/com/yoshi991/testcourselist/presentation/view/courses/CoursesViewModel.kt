@@ -14,7 +14,9 @@ class CoursesViewModel @Inject constructor(private val courseUseCase: CourseUseC
     private val _courses = mutableLiveDataOf<List<Course>>()
     val courses: LiveData<List<Course>> get() = _courses
 
-    fun getCourses() {
+    fun getCourses(shouldRefresh: Boolean = false) {
+        if (!shouldRefresh && _courses.value?.isNotEmpty() == true) return
+
         coroutineScope.launch {
             courseUseCase.getCourses()
                 .onSuccess { _courses.postValue(it) }

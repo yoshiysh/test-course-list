@@ -72,7 +72,7 @@ class CoursesFragment : BaseFragment(), CoursesHandler {
         viewModel.getCourses()
         binding.swipeRefresh.isRefreshing = true
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.getCourses()
+            viewModel.getCourses(true)
         }
     }
 
