@@ -8,6 +8,8 @@
     <string name="course_topic_unit">講座</string>
     <string name="course_usage_status">進捗状況：</string>
 
+    <string name="bookmark_empty_description">保存されている講座がありません</string>
+
     <string name="usage_status_not_started">開始前</string>
     <string name="usage_status_in_progress">未完了</string>
     <string name="usage_status_mastered">完了済み</string>

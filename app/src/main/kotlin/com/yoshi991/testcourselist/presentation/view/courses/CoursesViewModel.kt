@@ -29,4 +29,9 @@ class CoursesViewModel @Inject constructor(private val courseUseCase: CourseUseC
             courseUseCase.updateBookmark(course)
         }
     }
+
+    fun updateCourseBookmarked(course: Course) {
+        _courses.value?.find { it.id == course.id }?.isBookmark = course.isBookmark
+        _courses.postValue(_courses.value)
+    }
 }

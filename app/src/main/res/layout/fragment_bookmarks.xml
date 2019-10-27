@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/course_empty_description"
+                    android:text="@string/bookmark_empty_description"
                     android:textColor="@color/primary"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"

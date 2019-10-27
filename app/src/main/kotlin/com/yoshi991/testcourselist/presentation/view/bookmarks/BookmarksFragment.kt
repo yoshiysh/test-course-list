@@ -12,6 +12,7 @@ import com.xwray.groupie.ViewHolder
 import com.yoshi991.testcourselist.databinding.FragmentBookmarksBinding
 import com.yoshi991.testcourselist.presentation.view.base.BaseFragment
 import com.yoshi991.testcourselist.presentation.view.courses.CourseItem
+import com.yoshi991.testcourselist.presentation.view.courses.CoursesViewModel
 import com.yoshi991.testcourselist.util.SpacerItemDecoration
 import com.yoshi991.testcourselist.util.extension.dp
 import com.yoshi991.testcourselist.util.extension.showSnackbar
@@ -22,6 +23,10 @@ class BookmarksFragment : BaseFragment() {
 
     private val viewModel: BookmarksViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(BookmarksViewModel::class.java)
+    }
+
+    private val coursesViewModel: CoursesViewModel by lazy {
+        ViewModelProviders.of(requireActivity(), viewModelFactory).get(CoursesViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -54,7 +59,10 @@ class BookmarksFragment : BaseFragment() {
                 binding.emptyGroup.isVisible = courses.isEmpty()
 
                 adapter.update(courses.map { course ->
-                    CourseItem(course) { updateBookmark(it) }
+                    CourseItem(course) {
+                        updateBookmark(it)
+                        coursesViewModel.updateCourseBookmarked(it)
+                    }
                 })
             }
 

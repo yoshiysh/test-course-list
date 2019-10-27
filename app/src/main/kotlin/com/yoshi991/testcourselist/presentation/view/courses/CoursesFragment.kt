@@ -25,7 +25,7 @@ class CoursesFragment : BaseFragment(), CoursesHandler {
     lateinit var binding: FragmentCoursesBinding
 
     private val viewModel: CoursesViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(CoursesViewModel::class.java)
+        ViewModelProviders.of(requireActivity(), viewModelFactory).get(CoursesViewModel::class.java)
     }
 
     override fun onCreateView(
