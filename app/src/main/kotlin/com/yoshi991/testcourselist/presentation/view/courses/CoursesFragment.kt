@@ -15,7 +15,11 @@ import com.yoshi991.testcourselist.util.SpacerItemDecoration
 import com.yoshi991.testcourselist.util.extension.dp
 import com.yoshi991.testcourselist.util.extension.showSnackbar
 
-class CoursesFragment : BaseFragment() {
+interface CoursesHandler {
+    fun onClickBookmarks()
+}
+
+class CoursesFragment : BaseFragment(), CoursesHandler {
 
     lateinit var binding: FragmentCoursesBinding
 
@@ -68,5 +72,9 @@ class CoursesFragment : BaseFragment() {
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.getCourses()
         }
+    }
+
+    override fun onClickBookmarks() {
+        // TODO: bookmark fragment
     }
 }
